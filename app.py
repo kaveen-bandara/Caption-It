@@ -17,3 +17,11 @@ class ImageCaption:
         caption = self.processor.decode(output[0], skip_special_tokens = True)
         
         return caption
+
+if __name__ == '__main__':
+
+    img_path = r'Add file path here'
+    ic = ImageCaption()
+    caption = ic.generate(img_path)
+
+    print("Caption of the image: ", caption)
