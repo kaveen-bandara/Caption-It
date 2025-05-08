@@ -1,5 +1,6 @@
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import gradio as gr
 
 class ImageCaption:
 
@@ -20,8 +21,13 @@ class ImageCaption:
 
 if __name__ == '__main__':
 
-    img_path = r'Add file path here'
     ic = ImageCaption()
-    caption = ic.generate(img_path)
 
-    print("Caption of the image: ", caption)
+    app = gr.Interface(
+        fn = ic.generate,
+        inputs = gr.Image(type = 'pil'),
+        outputs = 'text',
+        description = "Upload an image and the AI will generate a caption"
+    )
+
+app.launch(share = True)
