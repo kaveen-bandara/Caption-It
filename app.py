@@ -1,6 +1,9 @@
+from flask import Flask, request, render_template, jsonify
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
-import gradio as gr
+import io
+
+app = Flask(__name__)
 
 class ImageCaption:
 
@@ -18,16 +21,19 @@ class ImageCaption:
         caption = self.processor.decode(output[0], skip_special_tokens = True)
         
         return caption
+    
+ic = ImageCaption()
+
+@app.route('/', methods = ['GET'])
+def index():
+    return render_template('index.html')
+
+@app.route('/caption', methods = ['POST'])
+def caption():
+    file = request.files['image']
+    image = Image.open(io.BytesIO(file.read())).convert('RGB')
+    caption = ic.generate(image)
+    return jsonify({'caption': caption})
 
 if __name__ == '__main__':
-
-    ic = ImageCaption()
-
-    app = gr.Interface(
-        fn = ic.generate,
-        inputs = gr.Image(type = 'pil'),
-        outputs = 'text',
-        description = "Upload an image and the AI will generate a caption"
-    )
-
-app.launch(share = True)
+    app.run(debug = True)
