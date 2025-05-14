@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 2em;
+    background-color: #f9f9f9;
+}
+
+form {
+    margin-bottom: 1.5em;
+}
+
+input[type='file'] {
+    margin: 1em 0;
+}
+
+img#preview {
+    display: none;
+    max-width: 18.5em;
+    margin-top: 0.5em;
+}
+
+#caption {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+#loading {
+    display: none;
+    font-style: italic;
+    color: #888;
+}
+
+.error {
+    color: red;
+}
